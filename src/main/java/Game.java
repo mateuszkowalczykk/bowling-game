@@ -6,12 +6,11 @@ public class Game {
     private final int numberOfFrames = 10;
     private final Map<Integer, ArrayList<Integer>> framesMap = new HashMap<>();
     private final ArrayList<Integer> subScoresList = new ArrayList<>();
-    private int currentFrameNumber = 1;
+    private int currentFrameNumber;
 
     public Game() {
-        for(int i = 1 ;i<numberOfFrames+1;i++){
-            framesMap.put(i,new ArrayList<>());
-        }
+        currentFrameNumber = 1;
+        framesMap.put(currentFrameNumber,new ArrayList<>());
     }
 
     public void roll(int knockedPins){
@@ -59,11 +58,11 @@ public class Game {
         if(currentFrame.size() == 0){
             currentFrame.add(knockedPins);
             if(isStrike(currentFrame)){
-                currentFrameNumber++;
+                nextFrame();
             }
         }else{
             currentFrame.add(knockedPins);
-            currentFrameNumber++;
+            nextFrame();
         }
     }
 
@@ -74,6 +73,13 @@ public class Game {
             currentFrame.add(knockedPins);
         }else if((isStrike(currentFrame)||isSpare(currentFrame))&&currentFrame.size()==2){
             currentFrame.add(knockedPins);
+        }
+    }
+
+    private void nextFrame(){
+        if(currentFrameNumber<numberOfFrames){
+            currentFrameNumber++;
+            framesMap.put(currentFrameNumber,new ArrayList<>());
         }
     }
 
