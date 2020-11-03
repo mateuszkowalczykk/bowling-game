@@ -22,20 +22,22 @@ public class Game {
     }
 
     public int score(){
-        for(int i = 1 ;i<numberOfFrames+1;i++){
-            int subScore = 0;
-            subScore += listSum(framesMap.get(i));
-            subScore += strikeBonus(i);
-            subScore += spareBonus(i);
-            subScoresList.add(subScore);
+        for(int i = 1 ;i<=framesMap.size();i++){
+            if(framesMap.get(i).size() >0){
+                int subScore = 0;
+                subScore += listSum(framesMap.get(i));
+                subScore += strikeBonus(i);
+                subScore += spareBonus(i);
+                subScoresList.add(subScore);
+            }
         }
 //        System.out.println(framesMap);
-//        System.out.println(subScoresList);
+        System.out.println(subScoresList);
         return listSum(subScoresList);
     }
 
     private int spareBonus(int frameNumber){
-        if(isSpare(framesMap.get(frameNumber)) && frameNumber != numberOfFrames){
+        if(isSpare(framesMap.get(frameNumber)) && frameNumber != numberOfFrames && framesMap.get(frameNumber+1).size() > 0){
             return framesMap.get(frameNumber+1).get(0);
         }
         return 0;
@@ -43,10 +45,12 @@ public class Game {
 
     private int strikeBonus(int frameNumber){
         if(isStrike(framesMap.get(frameNumber)) && frameNumber != numberOfFrames){
-            if(framesMap.get(frameNumber+1).size()>1){          //next roll isn't strike
+            if(framesMap.get(frameNumber+1).size()>1 && framesMap.get(frameNumber+1).size() > 1){//next roll isn't strike
                 return framesMap.get(frameNumber+1).get(0) + framesMap.get(frameNumber+1).get(1);
-            }else{                                              //next roll is strike
-                return framesMap.get(frameNumber+1).get(0)+framesMap.get(frameNumber+2).get(0);
+            }else{                               //next roll is strike
+                if(framesMap.get(frameNumber+2) != null){
+                    return framesMap.get(frameNumber+1).get(0)+framesMap.get(frameNumber+2).get(0);
+                }
             }
         }
         return 0;
