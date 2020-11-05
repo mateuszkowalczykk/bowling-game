@@ -25,7 +25,7 @@ public class Game {
         if (currentFrameNumber != numberOfFrames) {
             nextFrame();
         } else {
-            if(endGameCheck()) return false;
+            return !endGameCheck();
         }
         return true;
     }
@@ -88,11 +88,11 @@ public class Game {
     }
 
     private boolean isStrike(ArrayList<Integer> frame) {
-        return frame.size() != 0? frame.get(0) == 10 : false;
+        return frame.size() != 0 && frame.get(0) == 10;
     }
 
     private boolean isSpare(ArrayList<Integer> frame) {
-        return frame.size() != 0? listSum(frame) == 10 && frame.size() > 1 : false;
+        return frame.size() != 0 && listSum(frame) == 10 && frame.size() > 1;
     }
 
     private int listSum(ArrayList<Integer> frame) {
