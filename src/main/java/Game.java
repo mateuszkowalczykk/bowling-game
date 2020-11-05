@@ -14,20 +14,20 @@ public class Game {
 
     public boolean roll(int knockedPins) {
 
-        if(!isEndGame){
-            if(isRollPossible(knockedPins)){
-                framesMap.get(currentFrameNumber).add(knockedPins);
-            }else{
-                System.out.println("This roll is not possible. Please try again.");
-            }
+        if(!isEndGame) return false;
+
+        if(isRollPossible(knockedPins)){
+            framesMap.get(currentFrameNumber).add(knockedPins);
+        }else{
+            System.out.println("This roll is not possible. Please try again.");
         }
 
         if (currentFrameNumber != numberOfFrames) {
             nextFrame();
+            return true;
         } else {
             return !endGameCheck();
         }
-        return true;
     }
 
     public int score(){
