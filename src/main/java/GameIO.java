@@ -1,8 +1,4 @@
-import Exceptions.ExceptionType;
-import Exceptions.GameException;
 import java.util.Scanner;
-
-
 
 public class GameIO {
     private static Game game = new Game();
@@ -40,5 +36,4 @@ public class GameIO {
             closeApp = true;
         }
     }
-
 }
